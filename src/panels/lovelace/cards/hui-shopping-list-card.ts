@@ -16,7 +16,6 @@ import { guard } from "lit/directives/guard";
 import { repeat } from "lit/directives/repeat";
 import { applyThemesOnElement } from "../../../common/dom/apply_themes_on_element";
 import "../../../components/ha-card";
-import "../../../components/ha-icon";
 import {
   addItem,
   clearItems,
@@ -364,11 +363,6 @@ class HuiShoppingListCard
         display: flex;
         flex-direction: row;
         align-items: center;
-      }
-
-      .addRow ha-icon {
-        color: var(--secondary-text-color);
-        --mdc-icon-size: 26px;
       }
 
       .addButton {
