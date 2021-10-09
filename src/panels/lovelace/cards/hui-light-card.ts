@@ -15,7 +15,6 @@ import { applyThemesOnElement } from "../../../common/dom/apply_themes_on_elemen
 import { fireEvent } from "../../../common/dom/fire_event";
 import { computeStateDisplay } from "../../../common/entity/compute_state_display";
 import { computeStateName } from "../../../common/entity/compute_state_name";
-import { stateIcon } from "../../../common/entity/state_icon";
 import "../../../components/ha-card";
 import "../../../components/ha-icon-button";
 import { UNAVAILABLE, UNAVAILABLE_STATES } from "../../../data/entity";
@@ -125,13 +124,12 @@ export class HuiLightCard extends LitElement implements LovelaceCard {
                     : "hidden",
                 })}
               ></round-slider>
-              <ha-icon-button
+              <mwc-icon-button
                 class="light-button ${classMap({
                   "slider-center": lightSupportsDimming(stateObj),
                   "state-on": stateObj.state === "on",
                   "state-unavailable": stateObj.state === UNAVAILABLE,
                 })}"
-                .icon=${this._config.icon || stateIcon(stateObj)}
                 .disabled=${UNAVAILABLE_STATES.includes(stateObj.state)}
                 style=${styleMap({
                   filter: this._computeBrightness(stateObj),
@@ -143,7 +141,12 @@ export class HuiLightCard extends LitElement implements LovelaceCard {
                   hasDoubleClick: hasAction(this._config!.double_tap_action),
                 })}
                 tabindex="0"
-              ></ha-icon-button>
+              >
+                <ha-state-icon
+                  .icon=${this._config.icon}
+                  .state=${stateObj}
+                ></ha-state-icon>
+              </mwc-icon-button>
             </div>
           </div>
 

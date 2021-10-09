@@ -14,7 +14,6 @@ import { applyThemesOnElement } from "../../../common/dom/apply_themes_on_elemen
 import { computeDomain } from "../../../common/entity/compute_domain";
 import { computeStateDisplay } from "../../../common/entity/compute_state_display";
 import { computeStateName } from "../../../common/entity/compute_state_name";
-import { stateIcon } from "../../../common/entity/state_icon";
 import "../../../components/ha-card";
 import "../../../components/ha-icon-button";
 import { ActionHandlerEvent } from "../../../data/lovelace";
@@ -238,7 +237,7 @@ class HuiPictureGlanceCard extends LitElement implements LovelaceCard {
 
     return html`
       <div class="wrapper">
-        <ha-icon-button
+        <mwc-icon-button
           @action=${this._handleAction}
           .actionHandler=${actionHandler({
             hasHold: hasAction(entityConf.hold_action),
@@ -252,13 +251,17 @@ class HuiPictureGlanceCard extends LitElement implements LovelaceCard {
           class=${classMap({
             "state-on": !STATES_OFF.has(stateObj.state),
           })}
-          .icon=${entityConf.icon || stateIcon(stateObj)}
           title=${`${computeStateName(stateObj)} : ${computeStateDisplay(
             this.hass!.localize,
             stateObj,
             this.hass!.locale
           )}`}
-        ></ha-icon-button>
+        >
+          <ha-state-icon
+            .icon=${entityConf.icon}
+            .state=${stateObj}
+          ></ha-state-icon>
+        </mwc-icon-button>
         ${this._config!.show_state !== true && entityConf.show_state !== true
           ? html`<div class="state"></div>`
           : html`
